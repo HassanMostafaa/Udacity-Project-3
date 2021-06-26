@@ -1,0 +1,351 @@
+* {
+  list-style: decimal;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
+a {
+  color: white;
+}
+
+.question a {
+  color: #333;
+
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav {
+  background-color: #333;
+  color: #f4f4f4;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 5px 10%;
+}
+
+.login-card {
+
+  width: 80%;
+  margin:50px auto;
+}
+
+.login-card select,
+.login-card button {
+  margin: 10px 0;
+  display: block;
+  min-width: 300px;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgb(180, 180, 180);
+
+}
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.toggleHomeContent {
+  padding: 10px 20px;
+  color: #f4f4f4;
+  background: #333;
+  margin: 20px 0 -5px 0;
+  cursor: pointer;
+  transition: .5s;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.068);
+}
+
+.toggleHomeContent:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.452);
+  transition: .5s;
+}
+
+.userDet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+
+}
+
+.userDet a {
+  margin: 0 20px;
+}
+
+.userDet button {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  margin: 0 30px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.userDet img {
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.226);
+  margin: 0 10px;
+}
+
+.question {
+
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.123);
+  margin: 30px 0;
+  transition: .5s;
+
+}
+
+.question:hover {
+  transition: .5s;
+  cursor: pointer;
+
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.192);
+}
+
+.question Link {
+  border: 1px solid red;
+}
+
+.seePoll {
+  padding: 10px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: none;
+  color: #333;
+
+  /* font-weight: 600; */
+  letter-spacing: 2px;
+  border: 1px solid lightgray;
+}
+
+.option {
+  border-left: 3px solid grey;
+  margin: 20px 0;
+  padding: 0 5px;
+}
+
+.voteBtn{
+ 
+  background-color: #d4d4d4;
+
+  cursor: pointer;
+  padding: 10px 60px;
+  width: 25%;
+}
+/* POLL STYLES */
+.homeBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.selectedPoll {
+  padding: 20px;
+  /* border: 1px solid red; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.144);
+  border-radius: 10px;
+  width: 90%;
+  margin: 100px auto;
+}
+
+.selectedPoll h1 {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.selectedPoll h1 span {
+  background: #fff;
+  padding: 0 10px;
+}
+
+
+.selectedPoll .or {
+  width: 25%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.selectedPoll .or span {
+  background: #fff;
+  padding: 0 10px;
+}
+
+.selectedPoll .pollTime {
+  color: grey;
+  font-size: 12px;
+}
+
+.selectedPoll .pollId {
+  color: grey;
+  font-size: 12px;
+  float: right;
+}
+
+.selectedPoll img {
+  border-radius: 8px;
+  margin: 0px 0 10px 0;
+  box-shadow: 0 0 5px gray;
+}
+
+/* progress bar */
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+
+  min-width:350px;
+  height: 10px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.055) inset;
+}
+
+progress[value]::-webkit-progress-value {
+  background-image:
+    -webkit-linear-gradient(45deg, rgba(0, 0, 0, .1) 33%,
+      rgba(0, 0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top,
+      rgba(255, 255, 255, .25),
+      rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, rgb(46, 46, 46), rgb(112, 0, 0));
+
+  border-radius: 2px;
+  background-size: 35px 20px, 100% 100%, 100% 100%; 
+}
+
+.leaderboardCard {
+  padding: 20px 50px 20px 20px;
+  margin: 30px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.158);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leaderboardCard.currentUser {
+  border: 1px solid green;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 128, 0, 0.301);
+}
+
+.leaderboardCard.currentUser::before {
+  content: "You Are Here !!";
+  position: absolute;
+  font-size: 11px;
+  top: 20px;
+  right: -40px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgb(58, 58, 58);
+  background: lightgreen;
+  transform: rotate(45deg);
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.leaderboardLabel {
+
+  color: #333;
+  margin-top: 20px;
+}
+
+.leaderboardCard div {
+  margin: 5px 0;
+}
+
+.rank {
+  background: rgb(221, 221, 221);
+  color: rgb(10, 10, 10);
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+
+}
+
+.rank::after {
+  position: absolute;
+  content: "";
+
+  top: 5px;
+  right: 5px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+/* NEW POLL STYLES */
+
+.newPoll {
+  width: 450px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.newPoll .form {
+ box-shadow: 0 0 15px rgba(0, 0, 0, 0.11);
+  padding: 20px;
+  border-radius: 10px;
+ 
+}
+
+.newPoll .form input,.newPoll .form button {
+  display: block;
+  margin: 30px 0;
+  padding: 10px;
+  border-bottom: 1px solid grey; 
+  background-color: #fff;
+  width: 100%;
+  color: #333;
+}
+.newPoll .form button{
+  border:1px solid grey;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+.emptyInputs{
+  border: 1px solid rgb(241, 142, 142) !important ; 
+  
+}
