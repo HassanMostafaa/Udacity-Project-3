@@ -18,6 +18,9 @@ const SelectedPoll = () => {
   const [answer, setanswer] = useState("");
   const [emptyAns, setemptyAns] = useState(false);
 
+  console.log(currentUser);
+  console.log(currentUserObj);
+
   const handleSubmit = async (e, qid) => {
     setanswer(e.target.value);
     setqid(qid);

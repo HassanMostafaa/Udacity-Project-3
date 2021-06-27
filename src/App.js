@@ -8,12 +8,14 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home";
 import { _getUsers } from "./_DATA";
-import { getAllUsers, logIn } from "./redux/rootActions";
+import { getAllUsers, logIn, deleteAllUsers } from "./redux/rootActions";
 import SelectedPoll from "./components/SelectedPoll";
 import Leaderboard from "./components/Leaderboard";
 import AddPoll from "./components/AddPoll";
 
 function App() {
+  // const history = useHistory();
+  // console.log(history);
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.userReducer.users);
   const currentUser = useSelector(
@@ -21,15 +23,24 @@ function App() {
   );
   const [isLogged, setIsLogged] = useState(false);
   const [userSelected, setuserSelected] = useState(true);
+  const [redirected, setredirected] = useState(true);
 
   useEffect(() => {
-    _getUsers().then((res) => {
-      var i = 0;
-      for (i = 0; i < Object.keys(res).length; i++) {
-        dispatch(getAllUsers([res[Object.keys(res)[i]]]));
-      }
-    });
-  }, [dispatch]);
+    if (redirected) {
+      dispatch(deleteAllUsers());
+      console.log("all users deleted");
+      _getUsers().then((res) => {
+        var i = 0;
+        for (i = 0; i < Object.keys(res).length; i++) {
+          dispatch(getAllUsers([res[Object.keys(res)[i]]]));
+          console.log("all users ", allUsers[i]);
+        }
+        console.log("all users added");
+      });
+    } else {
+      console.log("h5a");
+    }
+  }, [dispatch, redirected]);
 
   return (
     <Router>
@@ -57,6 +68,7 @@ function App() {
                 </option>
               ))}
             </select>
+            {allUsers.length > 3 && window.location.reload()}
             {!userSelected ? (
               <p
                 style={{
@@ -104,11 +116,11 @@ function App() {
           {isLogged && <Redirect to="/home" />}
         </Route>
 
-        <Route path="/:currentUser/questions/:pollId">
+        <Route exact path="/:currentUser/questions/:pollId">
           <SelectedPoll />
         </Route>
 
-        <Route path="/:currentUser/add">
+        <Route exact path="/:currentUser/add">
           <AddPoll />
         </Route>
 
@@ -117,6 +129,10 @@ function App() {
         </Route>
         <Route exact path="/:currentUser/leaderboard">
           <Leaderboard />
+        </Route>
+
+        <Route path="*">
+          <Redirect to="/"></Redirect>
         </Route>
       </Switch>
     </Router>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams, useHistory } from "react-router";
+import { useParams, Redirect } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { _getUsers } from "../_DATA";
 import { getAllUsers, deleteAllUsers } from "../redux/rootActions";
@@ -12,6 +12,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     dispatch(deleteAllUsers());
+
     _getUsers().then((res) => {
       var i = 0;
       for (i = 0; i < Object.keys(res).length; i++) {
@@ -21,13 +22,9 @@ const Leaderboard = () => {
     });
   }, [dispatch]);
 
-  const history = useHistory();
-
   const currentUser = useParams().currentUser;
   const currentUserObj = allUsers.filter((user) => user.id === currentUser);
-  const fromLeaderToHome = () => {
-    history.push("/");
-  };
+
   return (
     <div>
       {!loading && (
@@ -47,9 +44,7 @@ const Leaderboard = () => {
             </h4>
           </div>
           <div className="userDet">
-            <Link onClick={fromLeaderToHome} to={`#`}>
-              Home
-            </Link>
+            <Link to={`/home`}>Home</Link>
             <button
               onClick={() => {
                 window.location.href = "/";
@@ -63,64 +58,69 @@ const Leaderboard = () => {
 
       {!loading ? (
         <div className="loadingTest">
-          <div className="content">
-            <h1 className="leaderboardLabel">Leaderboard</h1>
-            {allUsers
-              .sort((a, b) =>
-                a.questions.length + Object.keys(a.answers).length >
-                b.questions.length + Object.keys(b.answers).length
-                  ? -1
-                  : 1
-              )
-              .map((user, index) => (
-                <div
-                  key={index}
-                  className={
-                    currentUser === user.id
-                      ? "leaderboardCard currentUser"
-                      : "leaderboardCard"
-                  }
-                >
-                  <div>
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        color: "grey",
-                      }}
-                    >
-                      USER ID : {user.id}
-                    </p>
-                    <br />
-                    <img
-                      style={{ borderRadius: "10px" }}
-                      src={user.avatarURL}
-                      width="100px"
-                      alt="profilePic"
-                    />
+          {allUsers.length === 3 ? (
+            <div className="content">
+              <h1 className="leaderboardLabel">Leaderboard</h1>
+              {allUsers
+                .sort((a, b) =>
+                  a.questions.length + Object.keys(a.answers).length >
+                  b.questions.length + Object.keys(b.answers).length
+                    ? -1
+                    : 1
+                )
+                .map((user, index) => (
+                  <div
+                    key={index}
+                    className={
+                      currentUser === user.id
+                        ? "leaderboardCard currentUser"
+                        : "leaderboardCard"
+                    }
+                  >
                     <div>
-                      <span style={{ fontWeight: "600" }}>Full Name : </span>
-                      {user.name}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "600" }}>Questions : </span>
-                      {user.questions.length}
-                    </div>
-                    <div>
-                      <span style={{ fontWeight: "600" }}> Answers : </span>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          color: "grey",
+                        }}
+                      >
+                        USER ID : {user.id}
+                      </p>
+                      <br />
+                      <img
+                        style={{ borderRadius: "10px" }}
+                        src={user.avatarURL}
+                        width="100px"
+                        alt="profilePic"
+                      />
+                      <div>
+                        <span style={{ fontWeight: "600" }}>Full Name : </span>
+                        {user.name}
+                      </div>
+                      <div>
+                        <span style={{ fontWeight: "600" }}>Questions : </span>
+                        {user.questions.length}
+                      </div>
+                      <div>
+                        <span style={{ fontWeight: "600" }}> Answers : </span>
 
-                      {Object.keys(user.answers).length}
+                        {Object.keys(user.answers).length}
+                      </div>
+                    </div>
+                    <div className="leaderboardRightSide">
+                      <h2 className="rank">Rank : {index + 1}</h2>
+                      <h1 className="score">
+                        Score :{" "}
+                        {Object.keys(user.answers).length +
+                          user.questions.length}
+                      </h1>
                     </div>
                   </div>
-                  <div className="leaderboardRightSide">
-                    <h2 className="rank">Rank : {index + 1}</h2>
-                    <h1 className="score">
-                      Score :{" "}
-                      {Object.keys(user.answers).length + user.questions.length}
-                    </h1>
-                  </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
+          ) : (
+            <Redirect to="/"></Redirect>
+          )}
         </div>
       ) : (
         <div>
