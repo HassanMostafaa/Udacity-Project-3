@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import { _saveQuestion } from "../_DATA";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ const AddPoll = () => {
   const [emptyInputs, setemptyInputs] = useState(false);
 
   localStorage.setItem("URL", "addPoll page");
+  // console.log(currentUserObj);
 
   const addPoll = () => {
     if (optionTwoVal !== "" && optionOneVal !== "") {
@@ -89,13 +90,14 @@ const AddPoll = () => {
         <button onClick={addPoll}> Add a New Poll </button>
         <button
           onClick={() => {
-            history.push("/");
+            history.push("/home");
           }}
         >
           {" "}
           Cancel{" "}
         </button>
       </div>
+      {!currentUserObj[0] && <Redirect to="/"></Redirect> }
     </div>
   );
 };

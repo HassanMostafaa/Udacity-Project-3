@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteAllQuestions } from "../redux/rootActions";
 import { _getQuestions, _saveQuestionAnswer } from "../_DATA";
 import Swal from "sweetalert2";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const SelectedPoll = () => {
   const [allUsersFromData, setAllUsersFromData] = useState({});

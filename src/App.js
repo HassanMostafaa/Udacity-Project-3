@@ -24,7 +24,7 @@ function App() {
   const [userSelected, setuserSelected] = useState(true);
 
   localStorage.setItem("URL", localStorage.getItem("URL"));
-  const [storedURL, setstoredURL] = useState(localStorage.getItem("URL"));
+
   useEffect(() => {
     dispatch(deleteAllUsers());
 
@@ -34,11 +34,13 @@ function App() {
         dispatch(getAllUsers([res[Object.keys(res)[i]]]));
       }
     });
-    console.log(storedURL);
-  }, [dispatch, storedURL]);
+  }, [dispatch]);
 
   window.location.href.includes("leaderboard") &&
     localStorage.setItem("URL", "leaderboard page");
+
+  window.location.href.includes("add") &&
+    localStorage.setItem("URL", "addPoll page");
 
   return (
     <Router>
@@ -146,7 +148,7 @@ function App() {
         </Route>
 
         <Route exact path="/home">
-          <Home currentUser={currentUser} setstoredURL={setstoredURL} />
+          <Home currentUser={currentUser} />
         </Route>
         <Route exact path="/:currentUser/leaderboard">
           <Leaderboard />
