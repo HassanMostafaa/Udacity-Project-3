@@ -9,6 +9,7 @@ const Leaderboard = () => {
   const allUsers = useSelector((state) => state.userReducer.users);
   const dispatch = useDispatch();
   const [loading, setloading] = useState(true);
+  localStorage.setItem("URL", "leaderboard page");
 
   useEffect(() => {
     dispatch(deleteAllUsers());

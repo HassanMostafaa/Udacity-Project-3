@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteAllQuestions } from "../redux/rootActions";
 import { _getQuestions, _saveQuestionAnswer } from "../_DATA";
 import Swal from "sweetalert2";
+import { Redirect, Route } from "react-router-dom";
 
 const SelectedPoll = () => {
   const [allUsersFromData, setAllUsersFromData] = useState({});
@@ -17,9 +18,9 @@ const SelectedPoll = () => {
   const [qidd, setqid] = useState("");
   const [answer, setanswer] = useState("");
   const [emptyAns, setemptyAns] = useState(false);
+  const [redirect, setredirect] = useState(false);
 
-  console.log(currentUser);
-  console.log(currentUserObj);
+  localStorage.setItem("URL", "selected poll page");
 
   const handleSubmit = async (e, qid) => {
     setanswer(e.target.value);
@@ -43,13 +44,11 @@ const SelectedPoll = () => {
       });
 
       setTimeout(() => {
-        history.push("/");
+        history.push("/home");
       }, 1500);
     } else {
       setemptyAns(true);
     }
-
-    // return console.log("SAVE ur Aans clean up");
   }, [answer, currentUserObj, qidd, history]);
 
   useEffect(() => {
@@ -57,10 +56,11 @@ const SelectedPoll = () => {
     _getQuestions().then((res) => {
       setAllUsersFromData(res);
     });
-
-    // return console.log("useEffect clearnUP");
-    //}, [dispatch]);
   }, [dispatch]);
+
+  setTimeout(() => {
+    setredirect(true);
+  }, 1100);
 
   if (thisPoll) {
     var time = new Date(thisPoll.timestamp).toLocaleDateString("en-US");
@@ -69,8 +69,11 @@ const SelectedPoll = () => {
   }
 
   const backToHome = () => {
-    history.push("/");
+    history.push("/home");
   };
+
+  console.log(window.location.href);
+  console.log(thisPoll);
 
   return (
     <div>
@@ -242,7 +245,11 @@ const SelectedPoll = () => {
           )}
         </div>
       ) : (
-        <div className="selectedPoll"> LOADING ... </div>
+        <div className="selectedPoll">
+          {" "}
+          <div>LOADING ...</div>
+          {redirect && <Redirect to="/ERROR" />}
+        </div>
       )}
     </div>
   );

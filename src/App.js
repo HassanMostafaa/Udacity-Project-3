@@ -12,10 +12,9 @@ import { getAllUsers, logIn, deleteAllUsers } from "./redux/rootActions";
 import SelectedPoll from "./components/SelectedPoll";
 import Leaderboard from "./components/Leaderboard";
 import AddPoll from "./components/AddPoll";
+import SelectedPollError from "./components/SelectedPollError";
 
 function App() {
-  // const history = useHistory();
-  // console.log(history);
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.userReducer.users);
   const currentUser = useSelector(
@@ -23,24 +22,23 @@ function App() {
   );
   const [isLogged, setIsLogged] = useState(false);
   const [userSelected, setuserSelected] = useState(true);
-  const [redirected, setredirected] = useState(true);
 
+  localStorage.setItem("URL", localStorage.getItem("URL"));
+  const [storedURL, setstoredURL] = useState(localStorage.getItem("URL"));
   useEffect(() => {
-    if (redirected) {
-      dispatch(deleteAllUsers());
-      console.log("all users deleted");
-      _getUsers().then((res) => {
-        var i = 0;
-        for (i = 0; i < Object.keys(res).length; i++) {
-          dispatch(getAllUsers([res[Object.keys(res)[i]]]));
-          console.log("all users ", allUsers[i]);
-        }
-        console.log("all users added");
-      });
-    } else {
-      console.log("h5a");
-    }
-  }, [dispatch, redirected]);
+    dispatch(deleteAllUsers());
+
+    _getUsers().then((res) => {
+      var i = 0;
+      for (i = 0; i < Object.keys(res).length; i++) {
+        dispatch(getAllUsers([res[Object.keys(res)[i]]]));
+      }
+    });
+    console.log(storedURL);
+  }, [dispatch, storedURL]);
+
+  window.location.href.includes("leaderboard") &&
+    localStorage.setItem("URL", "leaderboard page");
 
   return (
     <Router>
@@ -113,7 +111,30 @@ function App() {
             </p>
           </div>
 
-          {isLogged && <Redirect to="/home" />}
+          {isLogged && localStorage.getItem("URL").includes("home page") && (
+            <Redirect to="/home" />
+          )}
+          {isLogged && localStorage.getItem("URL").includes("null") && (
+            <Redirect to="/home" />
+          )}
+
+          {isLogged &&
+            localStorage.getItem("URL").includes("leaderboard page") && (
+              <Redirect to={`/${currentUser.id}/leaderboard`} />
+            )}
+
+          {isLogged && localStorage.getItem("URL").includes("addPoll page") && (
+            <Redirect to={`/${currentUser.id}/add`} />
+          )}
+
+          {isLogged &&
+            localStorage.getItem("URL").includes("selected poll") && (
+              <Redirect to={`/${currentUser.id}/questions/error`} />
+            )}
+        </Route>
+
+        <Route exact path="/:currentUser/questions/error">
+          <SelectedPollError />
         </Route>
 
         <Route exact path="/:currentUser/questions/:pollId">
@@ -125,7 +146,7 @@ function App() {
         </Route>
 
         <Route exact path="/home">
-          <Home currentUser={currentUser} />
+          <Home currentUser={currentUser} setstoredURL={setstoredURL} />
         </Route>
         <Route exact path="/:currentUser/leaderboard">
           <Leaderboard />

@@ -15,6 +15,8 @@ const Home = ({ currentUser }) => {
   const [loading, setloading] = useState(true);
   const [cardListHook, setcardListHook] = useState("");
 
+  localStorage.setItem("URL", "home page");
+
   useEffect(() => {
     dispatch(deleteAllQuestions());
     _getQuestions()
@@ -35,6 +37,9 @@ const Home = ({ currentUser }) => {
       clearTimeout(timer);
     };
   }, [dispatch]);
+
+  window.location.href.includes("leaderboard") &&
+    localStorage.setItem("URL", "leaderboard page");
 
   const Chandler = "/Chandler.png";
   const Monika = "/Monika.jpg";

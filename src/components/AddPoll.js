@@ -15,6 +15,8 @@ const AddPoll = () => {
   );
   const [emptyInputs, setemptyInputs] = useState(false);
 
+  localStorage.setItem("URL", "addPoll page");
+
   const addPoll = () => {
     if (optionTwoVal !== "" && optionOneVal !== "") {
       _saveQuestion({
@@ -32,7 +34,7 @@ const AddPoll = () => {
       });
 
       setTimeout(() => {
-        history.push("/");
+        history.push("/home");
       }, 1500);
     } else {
       setemptyInputs(true);
@@ -40,7 +42,7 @@ const AddPoll = () => {
   };
 
   const backToHome = () => {
-    history.push("/");
+    history.push("/home");
   };
 
   return (

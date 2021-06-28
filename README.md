@@ -23,7 +23,7 @@ SCREENS
 > From the home page you can see any poll where you will be directed to the poll's information if it's Unanswered You can vote and be redirected to the Home page to see other Unvoted polls
 ![Unanswered Poll Screenshot](unAns.png)
 Or if it's answered 
-![Answered Poll Screenshot](answered.png)
+![Answered Poll Screenshot](answered-ss.png)
 
 ## Leaderboard Page
 > Where you'd find your ranking and score amongst other Users and Information about them and their scores
